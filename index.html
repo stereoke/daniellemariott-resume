@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Danielle Mariott | Product & Platform Leader</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+  <div id="root"></div>
+  
+  <script type="text/babel">
+    const { useState } = React;
+    
+    // 🎯 EDIT YOUR CONTENT HERE - THIS IS THE ONLY SECTION YOU NEED TO UPDATE
+    const resumeData = {
+      summary: {
+        name: "Danielle Mariott",
+        title: "Product & Platform Leader",
+        location: "Salt Lake City, Utah",
+        bio: "15 years driving enterprise-scale solutions. 5 years managing creative and technical teams. Currently leading engineering squads at Adobe while architecting design systems that power 1M+ web pages.",
+        seeking: "Seeking formal team leadership opportunities to scale impact through people development.",
+        profileImage: "https://media.licdn.com/dms/image/v2/D5603AQGiXAHJ2YWfKQ/profile-displayphoto-shrink_800_800/B56ZQuRQb5GQBQ-/0/1735943064442?e=1770249600&v=beta&t=_cLPPHe_Et-GX0IzUIUvK56iwsA601PX3O_QJ4z5Q3w"
+      },
+      contact: {
+        email: "daniellemariott@gmail.com",
+        phone: "801-898-8000",
+        linkedin: "linkedin.com/in/daniellemariott"
+      },
+      experiences: [
+        {
+          id: 1,
+          company: "Adobe",
+          role: "Sr. Product Manager & Engineering Squad Lead",
+          period: "2021—Present",
+          type: "Leadership",
+          summary: "Leading platform strategy and engineering squad for Adobe's Consonant design system across 40+ product teams.",
+          responsibilities: [
+            "Serve as engineering squad lead, mentoring teams on architecture, accessibility (WCAG 2.2 AA), and AI tooling",
+            "Established governance frameworks enabling autonomous execution while maintaining system integrity",
+            "Leading adoption of AI technologies including MCP servers and agent-to-agent frameworks",
+            "First-of-its-kind orchestration role bridging creative, campaign, and engineering organizations"
+          ],
+          impact: "Created frameworks enabling 40+ teams to ship faster while maintaining consistency and accessibility standards"
+        },
+        {
+          id: 2,
+          company: "Adobe",
+          role: "Sr. Product Manager",
+          period: "2018—2021",
+          type: "Product",
+          summary: "Owned end-to-end roadmap for business.adobe.com marketing capabilities and enterprise platform development.",
+          responsibilities: [
+            "Pioneered Adobe Holiday Shopping Insights analyzing trillions of visits to U.S. retail sites",
+            "Built full-stack Content as a Service (CaaS) serving personalized content across all of adobe.com",
+            "Led E2E content migration from AEM Sites to Headless Edge Delivery Services",
+            "Created templates increasing design and producer efficiency for business.adobe.com"
+          ],
+          impact: "Won 2x Adobe Global Marketing Awards for Data Driven innovation and Collaboration"
+        },
+        {
+          id: 3,
+          company: "Adobe",
+          role: "Senior Studio Manager",
+          period: "2016—2018",
+          type: "Management",
+          summary: "Managed creative operations, project workflows, and cross-functional team collaboration.",
+          responsibilities: [
+            "Led team of designers and producers across concurrent projects",
+            "Built project frameworks from requirements through design, development, and deployment",
+            "Established priority systems ensuring team met all deadlines",
+            "Managed budgets, vendor relationships, and resource allocation"
+          ],
+          impact: "Known for approaching problems with creative solutions and providing clarity in ambiguity"
+        },
+        {
+          id: 4,
+          company: "Clearlink",
+          role: "Group Content Strategist",
+          period: "2012—2013",
+          type: "Management",
+          summary: "Created and managed cross-functional team developing cabletv.com from strategy through launch.",
+          responsibilities: [
+            "Built and led team of SEO specialists, analysts, and content strategists",
+            "Developed interactive coverage map requiring extensive backend data integration",
+            "Launched blog platform with supporting content strategy framework",
+            "Managed full product lifecycle from UX through development"
+          ],
+          impact: "Increased ROI for cable, satellite, and telecom properties by 45% YoY after launch"
+        },
+        {
+          id: 5,
+          company: "Adobe",
+          role: "Content Operations Manager",
+          period: "2013—2016",
+          type: "Operations",
+          summary: "Bridged marketing and creative teams, driving tactical execution of enterprise initiatives.",
+          responsibilities: [
+            "Built project management frameworks from concept through deployment",
+            "Facilitated cross-team collaboration and identified potential roadblocks",
+            "Ensured clear priorities and effective workload distribution",
+            "Maintained stakeholder relationships and managed expectations"
+          ],
+          impact: "Go-to person for fresh perspectives on complex projects"
+        },
+        {
+          id: 6,
+          company: "Overstock.com",
+          role: "Group UX Lead & Social Media Manager",
+          period: "2004—2011",
+          type: "Design",
+          summary: "Led UX team through critical transition from print to web, managing social media during platform emergence.",
+          responsibilities: [
+            "Managed UX team through print-to-web transformation",
+            "Led social media strategy during early days of social platforms",
+            "Applied creative thinking to technical and business challenges",
+            "Built foundation for cross-functional collaboration"
+          ],
+          impact: "Known for applying creativity to everything from design to technical concepts"
+        }
+      ]
+    };
+    // 🎯 END OF EDITABLE CONTENT
+    
+    // Icons (simplified SVG)
+    const ChevronRight = () => (
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <polyline points="9 18 15 12 9 6"></polyline>
+      </svg>
+    );
+    
+    const X = () => (
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    );
+    
+    const Send = () => (
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <line x1="22" y1="2" x2="11" y2="13"></line>
+        <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+      </svg>
+    );
+
+    const InteractiveResume = () => {
+      const [selectedExperience, setSelectedExperience] = useState(null);
+      const [chatOpen, setChatOpen] = useState(false);
+      const [messages, setMessages] = useState([]);
+      const [input, setInput] = useState('');
+      const [isLoading, setIsLoading] = useState(false);
+
+      const handleSendMessage = async () => {
+        if (!input.trim()) return;
+
+        const userMessage = input.trim();
+        setMessages(prev => [...prev, { role: 'user', content: userMessage }]);
+        setInput('');
+        setIsLoading(true);
+
+        try {
+          const response = await fetch('https://api.anthropic.com/v1/messages', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              model: 'claude-sonnet-4-20250514',
+              max_tokens: 1000,
+              system: `You are a helpful assistant that answers questions about Danielle Mariott's professional background. Use the following resume data to answer questions. Be professional, concise, and highlight her leadership capabilities.
+
+Resume Data:
+${JSON.stringify(resumeData, null, 2)}
+
+Guidelines:
+- Emphasize her leadership experience and team management skills
+- Highlight her progression from IC to team lead
+- Mention specific achievements with metrics when relevant
+- Be enthusiastic about her readiness for formal management roles
+- Keep responses concise (2-3 paragraphs max)
+- Use a professional, direct tone
+- If asked about areas not in her resume, politely say you don't have that information`,
+              messages: [
+                { role: 'user', content: userMessage }
+              ]
+            })
+          });
+
+          const data = await response.json();
+          const assistantMessage = data.content
+            .filter(block => block.type === 'text')
+            .map(block => block.text)
+            .join('\n');
+
+          setMessages(prev => [...prev, { role: 'assistant', content: assistantMessage }]);
+        } catch (error) {
+          setMessages(prev => [...prev, { 
+            role: 'assistant', 
+            content: 'I apologize, but I encountered an error. Please try asking your question again.' 
+          }]);
+        } finally {
+          setIsLoading(false);
+        }
+      };
+
+      return (
+        <div className="min-h-screen bg-white text-black font-light">
+          {/* Header */}
+          <header className="border-b border-black/10">
+            <div className="max-w-4xl mx-auto px-6 py-16">
+              <div className="mb-8">
+                <div className="flex items-start gap-6 mb-6">
+                  {/* Desktop: Small bio pic next to name */}
+                  <div className="hidden md:block flex-shrink-0">
+                    <img 
+                      src={resumeData.summary.profileImage}
+                      alt={resumeData.summary.name}
+                      className="w-[32px] h-[32px] rounded-full object-cover border border-black/10"
+                    />
+                  </div>
+                  
+                  <div className="flex-1">
+                    <h1 className="text-5xl md:text-6xl font-light tracking-tight mb-4">
+                      {resumeData.summary.name}
+                    </h1>
+                    <div className="space-y-1 text-sm text-black/60 tracking-wide">
+                      <p>{resumeData.summary.title}</p>
+                      <p>{resumeData.summary.location}</p>
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Mobile/Tablet: Image below location */}
+                <div className="md:hidden mb-6">
+                  <img 
+                    src={resumeData.summary.profileImage}
+                    alt={resumeData.summary.name}
+                    className="w-[150px] h-[150px] rounded-full object-cover border border-black/10"
+                  />
+                </div>
+              </div>
+              
+              <div className="max-w-2xl space-y-6">
+                <p className="text-lg leading-relaxed text-black/80">
+                  {resumeData.summary.bio}
+                </p>
+                <p className="text-base text-black/60">
+                  {resumeData.summary.seeking}
+                </p>
+              </div>
+
+              <button
+                onClick={() => setChatOpen(!chatOpen)}
+                className="mt-12 inline-flex items-center gap-2 text-sm tracking-wide pb-1 transition-all"
+                style={{borderBottom: '1px solid #648aed', color: '#648aed'}}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.color = '#6468ed';
+                  e.currentTarget.style.borderBottomColor = '#6468ed';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.color = '#648aed';
+                  e.currentTarget.style.borderBottomColor = '#648aed';
+                }}
+              >
+                Ask about my experience
+                <ChevronRight />
+              </button>
+            </div>
+          </header>
+
+          {/* Experience */}
+          <section className="max-w-4xl mx-auto px-6 py-20">
+            <h2 className="text-xs uppercase tracking-widest text-black/40 mb-12">
+              Experience
+            </h2>
+
+            <div className="space-y-16">
+              {resumeData.experiences.map((exp) => (
+                <article
+                  key={exp.id}
+                  onClick={() => setSelectedExperience(exp)}
+                  className="group cursor-pointer"
+                  onMouseEnter={(e) => {
+                    const typeLabel = e.currentTarget.querySelector('.type-label');
+                    const viewDetails = e.currentTarget.querySelector('.view-details');
+                    if (typeLabel) typeLabel.style.color = '#6468ed';
+                    if (viewDetails) viewDetails.style.color = '#6468ed';
+                  }}
+                  onMouseLeave={(e) => {
+                    const typeLabel = e.currentTarget.querySelector('.type-label');
+                    const viewDetails = e.currentTarget.querySelector('.view-details');
+                    if (typeLabel) typeLabel.style.color = '#648aed';
+                    if (viewDetails) viewDetails.style.color = '#648aed';
+                  }}
+                >
+                  <div className="flex justify-between items-start mb-3">
+                    <div className="flex-1">
+                      <h3 className="text-xl font-light mb-1 group-hover:opacity-60 transition-opacity">
+                        {exp.role}
+                      </h3>
+                      <div className="flex items-center gap-3 text-sm text-black/60">
+                        <span>{exp.company}</span>
+                        <span>·</span>
+                        <span>{exp.period}</span>
+                      </div>
+                    </div>
+                    <span className="type-label text-xs uppercase tracking-widest ml-4 transition-colors" style={{color: '#648aed'}}>
+                      {exp.type}
+                    </span>
+                  </div>
+                  
+                  <p className="text-black/70 leading-relaxed max-w-2xl">
+                    {exp.summary}
+                  </p>
+
+                  <div className="view-details mt-4 inline-flex items-center gap-2 text-xs tracking-wide transition-colors" style={{color: '#648aed'}}>
+                    View details
+                    <ChevronRight />
+                  </div>
+                </article>
+              ))}
+            </div>
+          </section>
+
+          {/* Footer */}
+          <footer className="border-t border-black/10">
+            <div className="max-w-4xl mx-auto px-6 py-12">
+              <div className="flex justify-between items-center text-xs text-black/40 tracking-wide">
+                <div className="space-y-1">
+                  <p>{resumeData.contact.email}</p>
+                  <p>{resumeData.contact.phone}</p>
+                </div>
+                <div className="text-right space-y-1">
+                  <p>{resumeData.contact.linkedin}</p>
+                  <p>2026</p>
+                </div>
+              </div>
+            </div>
+          </footer>
+
+          {/* Experience Detail Modal */}
+          {selectedExperience && (
+            <div 
+              className="fixed inset-0 bg-white z-50 overflow-y-auto"
+              onClick={() => setSelectedExperience(null)}
+            >
+              <div className="max-w-3xl mx-auto px-6 py-20" onClick={(e) => e.stopPropagation()}>
+                <button
+                  onClick={() => setSelectedExperience(null)}
+                  className="fixed top-8 right-8 text-black/40 hover:text-black transition-colors"
+                >
+                  <X />
+                </button>
+
+                <div className="mb-16">
+                  <div className="text-xs uppercase tracking-widest mb-6" style={{color: '#648aed'}}>
+                    {selectedExperience.type}
+                  </div>
+                  <h2 className="text-4xl font-light tracking-tight mb-4">
+                    {selectedExperience.role}
+                  </h2>
+                  <div className="flex items-center gap-3 text-sm text-black/60 mb-8">
+                    <span>{selectedExperience.company}</span>
+                    <span>·</span>
+                    <span>{selectedExperience.period}</span>
+                  </div>
+                </div>
+
+                <div className="space-y-12">
+                  <div>
+                    <h3 className="text-xs uppercase tracking-widest text-black/40 mb-6">
+                      Responsibilities
+                    </h3>
+                    <ul className="space-y-4">
+                      {selectedExperience.responsibilities.map((item, idx) => (
+                        <li key={idx} className="text-black/70 leading-relaxed pl-4 border-l border-black/10">
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <div>
+                    <h3 className="text-xs uppercase tracking-widest text-black/40 mb-6">
+                      Impact
+                    </h3>
+                    <p className="text-black/70 leading-relaxed max-w-xl">
+                      {selectedExperience.impact}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Chat Interface */}
+          {chatOpen && (
+            <div className="fixed bottom-0 right-0 w-full md:w-96 h-[600px] bg-white border-l border-t border-black/10 flex flex-col z-50">
+              <div className="flex justify-between items-center p-6 border-b border-black/10">
+                <h3 className="text-sm tracking-wide">Ask about my experience</h3>
+                <button
+                  onClick={() => setChatOpen(false)}
+                  className="text-black/40 hover:text-black transition-colors"
+                >
+                  <X />
+                </button>
+              </div>
+
+              <div className="flex-1 overflow-y-auto p-6 space-y-6">
+                {messages.length === 0 && (
+                  <div className="text-sm text-black/40 space-y-4">
+                    <p className="mb-6">Suggested questions:</p>
+                    <button
+                      onClick={() => setInput("What leadership experience does Danielle have?")}
+                      className="block w-full text-left p-4 border border-black/10 hover:bg-black/5 transition-colors text-xs tracking-wide"
+                    >
+                      What leadership experience does Danielle have?
+                    </button>
+                    <button
+                      onClick={() => setInput("Tell me about her work with design systems")}
+                      className="block w-full text-left p-4 border border-black/10 hover:bg-black/5 transition-colors text-xs tracking-wide"
+                    >
+                      Tell me about her work with design systems
+                    </button>
+                    <button
+                      onClick={() => setInput("What makes her ready for a management role?")}
+                      className="block w-full text-left p-4 border border-black/10 hover:bg-black/5 transition-colors text-xs tracking-wide"
+                    >
+                      What makes her ready for a management role?
+                    </button>
+                  </div>
+                )}
+                
+                {messages.map((msg, idx) => (
+                  <div key={idx} className={`${msg.role === 'user' ? 'text-right' : 'text-left'}`}>
+                    <div className={`inline-block max-w-[85%] p-4 text-sm ${
+                      msg.role === 'user' 
+                        ? 'bg-black text-white' 
+                        : 'bg-black/5 text-black/80'
+                    }`}>
+                      <p className="whitespace-pre-wrap leading-relaxed">{msg.content}</p>
+                    </div>
+                  </div>
+                ))}
+                
+                {isLoading && (
+                  <div className="text-left">
+                    <div className="inline-block bg-black/5 p-4">
+                      <div className="flex gap-1">
+                        <div className="w-2 h-2 bg-black/40 rounded-full animate-bounce"></div>
+                        <div className="w-2 h-2 bg-black/40 rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
+                        <div className="w-2 h-2 bg-black/40 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              <div className="p-6 border-t border-black/10">
+                <div className="flex gap-2">
+                  <input
+                    type="text"
+                    value={input}
+                    onChange={(e) => setInput(e.target.value)}
+                    onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
+                    placeholder="Type your question..."
+                    className="flex-1 bg-transparent border border-black/10 px-4 py-2 text-sm focus:outline-none focus:border-black/30 placeholder-black/30"
+                  />
+                  <button
+                    onClick={handleSendMessage}
+                    disabled={isLoading || !input.trim()}
+                    className="bg-black text-white px-4 py-2 disabled:opacity-30 disabled:cursor-not-allowed hover:opacity-80 transition-opacity"
+                  >
+                    <Send />
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+      );
+    };
+
+    ReactDOM.render(<InteractiveResume />, document.getElementById('root'));
+  </script>
+</body>
+</html>
