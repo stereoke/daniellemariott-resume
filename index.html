@@ -35,7 +35,7 @@
       navigation: [
         { label: "Painting", href: "/painting" },
         { label: "Photography", href: "/photography" },
-        { label: "Writing", href: "/writing" }
+        { label: "Writing", href: "https://substack.com/@stereoke/posts" }
       ],
       paintings: [
         { id: 1, src: "https://raw.githubusercontent.com/stereoke/images/main/nicole.jpg", title: "Nicole", medium: "Oil on canvas" },
@@ -218,7 +218,7 @@
               <a
                 key={item.label}
                 href={item.href}
-                className="text-sm text-black/60 hover:text-black transition-colors tracking-wide"
+                className="text-sm text-black/60 hover:text-black hover:font-semibold transition-all tracking-wide underline"
               >
                 {item.label}
               </a>
@@ -271,7 +271,7 @@
                   <li key={item.label}>
                     <a
                       href={item.href}
-                      className="block text-lg font-light text-black/80 hover:text-black transition-colors"
+                      className="block text-lg font-light text-black/80 hover:text-black hover:font-semibold transition-all underline"
                       onClick={() => setIsOpen(false)}
                     >
                       {item.label}
@@ -342,7 +342,7 @@
             </h2>
             <a 
               href="/painting" 
-              className="text-xs tracking-wide transition-colors hover:opacity-60"
+              className="text-xs tracking-wide transition-all hover:font-semibold underline"
               style={{color: '#648aed'}}
             >
               View all work →
@@ -573,7 +573,7 @@
                       {exp.summary}
                     </p>
 
-                    <div className="view-details inline-flex items-center gap-2 text-xs tracking-wide transition-colors" style={{color: '#648aed'}}>
+                    <div className="view-details inline-flex items-center gap-2 text-xs tracking-wide transition-all underline hover:font-semibold" style={{color: '#648aed'}}>
                       {expandedId === exp.id ? 'Hide details' : 'View details'}
                       {expandedId === exp.id ? <ChevronDown /> : <ChevronRight />}
                     </div>
