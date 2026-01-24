@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painting | Danielle Mariott</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-bg: #fafafa;
+            --color-text: #1a1a1a;
+            --color-text-secondary: #525252;
+            --color-border: #e5e5e5;
+            --color-hover: #f5f5f5;
+            --color-accent: #404040;
+            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            --transition: 0.2s ease;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+        html {
+            font-size: 16px;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: var(--font-sans);
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Skip Link for Accessibility */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: var(--color-text);
+            color: var(--color-bg);
+            padding: 8px 16px;
+            z-index: 100;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .skip-link:focus {
+            top: 0;
+        }
+
+        /* Header */
+        header {
+            padding: 2rem 2rem 1rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .site-title {
+            font-size: 1.125rem;
+            font-weight: 500;
+            color: var(--color-text);
+            text-decoration: none;
+            letter-spacing: -0.01em;
+        }
+
+        .site-title:hover,
+        .site-title:focus {
+            color: var(--color-text-secondary);
+        }
+
+        nav {
+            display: flex;
+            gap: 2rem;
+        }
+
+        nav a {
+            font-size: 0.875rem;
+            color: var(--color-text-secondary);
+            text-decoration: none;
+            font-weight: 400;
+            transition: color var(--transition);
+            padding: 0.25rem 0;
+        }
+
+        nav a:hover,
+        nav a:focus {
+            color: var(--color-text);
+        }
+
+        nav a[aria-current="page"] {
+            color: var(--color-text);
+            font-weight: 500;
+            border-bottom: 1.5px solid var(--color-text);
+        }
+
+        /* Main Content */
+        main {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .page-header {
+            margin-bottom: 3rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .page-title {
+            font-size: 2rem;
+            font-weight: 300;
+            margin: 0 0 0.75rem;
+            letter-spacing: -0.02em;
+        }
+
+        .page-description {
+            font-size: 1rem;
+            color: var(--color-text-secondary);
+            margin: 0;
+            max-width: 600px;
+        }
+
+        /* Gallery Grid */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        /* Painting Card */
+        .painting-card {
+            background: white;
+            border: 1px solid var(--color-border);
+            border-radius: 4px;
+            overflow: hidden;
+            transition: box-shadow var(--transition), transform var(--transition);
+        }
+
+        .painting-card:hover,
+        .painting-card:focus-within {
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            transform: translateY(-2px);
+        }
+
+        .painting-image-container {
+            position: relative;
+            aspect-ratio: 4 / 5;
+            overflow: hidden;
+            background: var(--color-hover);
+        }
+
+        .painting-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .painting-card:hover .painting-image {
+            transform: scale(1.02);
+        }
+
+        .painting-info {
+            padding: 1.25rem;
+        }
+
+        .painting-title {
+            font-size: 1rem;
+            font-weight: 500;
+            margin: 0 0 0.375rem;
+            color: var(--color-text);
+        }
+
+        .painting-details {
+            font-size: 0.875rem;
+            color: var(--color-text-secondary);
+            margin: 0;
+        }
+
+        .painting-medium {
+            font-style: italic;
+        }
+
+        /* Focus States for Accessibility */
+        a:focus,
+        button:focus {
+            outline: 2px solid var(--color-accent);
+            outline-offset: 2px;
+        }
+
+        /* Footer */
+        footer {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+            border-top: 1px solid var(--color-border);
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .footer-text {
+            font-size: 0.875rem;
+            color: var(--color-text-secondary);
+            margin: 0;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .footer-links a {
+            font-size: 0.875rem;
+            color: var(--color-text-secondary);
+            text-decoration: none;
+            transition: color var(--transition);
+        }
+
+        .footer-links a:hover,
+        .footer-links a:focus {
+            color: var(--color-text);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            header {
+                padding: 1.5rem 1.25rem 1rem;
+            }
+
+            .header-content {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            nav {
+                gap: 1.5rem;
+            }
+
+            main {
+                padding: 1.5rem 1.25rem;
+            }
+
+            .page-title {
+                font-size: 1.75rem;
+            }
+
+            .gallery-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            footer {
+                padding: 2rem 1.25rem;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Reduced motion preference */
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <header>
+        <div class="header-content">
+            <a href="/" class="site-title">Danielle Mariott</a>
+            <nav aria-label="Main navigation">
+                <a href="/">Home</a>
+                <a href="/painting" aria-current="page">Painting</a>
+                <a href="/photography">Photography</a>
+                <a href="/writing">Writing</a>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <div class="page-header">
+            <h1 class="page-title">Painting</h1>
+            <p class="page-description">Oil and acrylic portraits capturing the essence of those I love—both human and canine companions.</p>
+        </div>
+
+        <section aria-label="Painting gallery">
+            <div class="gallery-grid">
+                <article class="painting-card">
+                    <div class="painting-image-container">
+                        <img 
+                            src="https://raw.githubusercontent.com/stereoke/images/main/stephanie.png" 
+                            alt="Portrait painting of Stephanie, featuring soft lighting and expressive brushwork"
+                            class="painting-image"
+                            loading="lazy"
+                        >
+                    </div>
+                    <div class="painting-info">
+                        <h2 class="painting-title">Stephanie</h2>
+                        <p class="painting-details">
+                            <span class="painting-medium">Oil on canvas</span>
+                        </p>
+                    </div>
+                </article>
+
+                <article class="painting-card">
+                    <div class="painting-image-container">
+                        <img 
+                            src="https://raw.githubusercontent.com/stereoke/images/main/nicole.jpg" 
+                            alt="Portrait painting of Nicole with warm tones and detailed rendering"
+                            class="painting-image"
+                            loading="lazy"
+                        >
+                    </div>
+                    <div class="painting-info">
+                        <h2 class="painting-title">Nicole</h2>
+                        <p class="painting-details">
+                            <span class="painting-medium">Oil on canvas</span>
+                        </p>
+                    </div>
+                </article>
+
+                <article class="painting-card">
+                    <div class="painting-image-container">
+                        <img 
+                            src="https://raw.githubusercontent.com/stereoke/images/main/john.JPG" 
+                            alt="Portrait painting of John, capturing character through light and shadow"
+                            class="painting-image"
+                            loading="lazy"
+                        >
+                    </div>
+                    <div class="painting-info">
+                        <h2 class="painting-title">John</h2>
+                        <p class="painting-details">
+                            <span class="painting-medium">Oil on canvas</span>
+                        </p>
+                    </div>
+                </article>
+
+                <article class="painting-card">
+                    <div class="painting-image-container">
+                        <img 
+                            src="https://raw.githubusercontent.com/stereoke/images/main/amanda.jpg" 
+                            alt="Portrait painting of Amanda with subtle color palette and fine detail"
+                            class="painting-image"
+                            loading="lazy"
+                        >
+                    </div>
+                    <div class="painting-info">
+                        <h2 class="painting-title">Amanda</h2>
+                        <p class="painting-details">
+                            <span class="painting-medium">Oil on canvas</span>
+                        </p>
+                    </div>
+                </article>
+
+                <article class="painting-card">
+                    <div class="painting-image-container">
+                        <img 
+                            src="https://raw.githubusercontent.com/stereoke/images/main/john2.png" 
+                            alt="Second portrait study of John with different composition"
+                            class="painting-image"
+                            loading="lazy"
+                        >
+                    </div>
+                    <div class="painting-info">
+                        <h2 class="painting-title">John II</h2>
+                        <p class="painting-details">
+                            <span class="painting-medium">Oil on canvas</span>
+                        </p>
+                    </div>
+                </article>
+
+                <article class="painting-card">
+                    <div class="painting-image-container">
+                        <img 
+                            src="https://raw.githubusercontent.com/stereoke/images/main/hands.jpg" 
+                            alt="Study of hands, focusing on form and gesture"
+                            class="painting-image"
+                            loading="lazy"
+                        >
+                    </div>
+                    <div class="painting-info">
+                        <h2 class="painting-title">Hands</h2>
+                        <p class="painting-details">
+                            <span class="painting-medium">Oil on canvas</span>
+                        </p>
+                    </div>
+                </article>
+
+                <article class="painting-card">
+                    <div class="painting-image-container">
+                        <img 
+                            src="https://raw.githubusercontent.com/stereoke/images/main/rocko.jpg" 
+                            alt="Portrait painting of Rocko the dog, capturing personality and warmth"
+                            class="painting-image"
+                            loading="lazy"
+                        >
+                    </div>
+                    <div class="painting-info">
+                        <h2 class="painting-title">Rocko</h2>
+                        <p class="painting-details">
+                            <span class="painting-medium">Oil on canvas</span>
+                        </p>
+                    </div>
+                </article>
+
+                <article class="painting-card">
+                    <div class="painting-image-container">
+                        <img 
+                            src="https://raw.githubusercontent.com/stereoke/images/main/charlie.JPG" 
+                            alt="Portrait painting of Charlie the dog with expressive eyes"
+                            class="painting-image"
+                            loading="lazy"
+                        >
+                    </div>
+                    <div class="painting-info">
+                        <h2 class="painting-title">Charlie</h2>
+                        <p class="painting-details">
+                            <span class="painting-medium">Oil on canvas</span>
+                        </p>
+                    </div>
+                </article>
+
+                <article class="painting-card">
+                    <div class="painting-image-container">
+                        <img 
+                            src="https://raw.githubusercontent.com/stereoke/images/main/dubs.JPG" 
+                            alt="Portrait painting of Dubs the dog, rendered with loving detail"
+                            class="painting-image"
+                            loading="lazy"
+                        >
+                    </div>
+                    <div class="painting-info">
+                        <h2 class="painting-title">Dubs</h2>
+                        <p class="painting-details">
+                            <span class="painting-medium">Oil on canvas</span>
+                        </p>
+                    </div>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p class="footer-text">© 2025 Danielle Mariott. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="https://linkedin.com/in/daniellemariott" aria-label="LinkedIn profile">LinkedIn</a>
+                <a href="mailto:hello@daniellemariott.com" aria-label="Send email">Contact</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
