@@ -132,15 +132,18 @@
       </svg>
     );
     
-    const X = () => (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-        <line x1="18" y1="6" x2="6" y2="18"></line>
-        <line x1="6" y1="6" x2="18" y2="18"></line>
+    const ChevronDown = () => (
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <polyline points="6 9 12 15 18 9"></polyline>
       </svg>
     );
 
     const InteractiveResume = () => {
-      const [selectedExperience, setSelectedExperience] = useState(null);
+      const [expandedId, setExpandedId] = useState(null);
+
+      const toggleExpand = (id) => {
+        setExpandedId(expandedId === id ? null : id);
+      };
 
       return (
         <div className="min-h-screen bg-white text-black font-light">
@@ -196,49 +199,82 @@
               Experience
             </h2>
 
-            <div className="space-y-16">
+            <div className="space-y-8">
               {resumeData.experiences.map((exp) => (
                 <article
                   key={exp.id}
-                  onClick={() => setSelectedExperience(exp)}
-                  className="group cursor-pointer"
-                  onMouseEnter={(e) => {
-                    const typeLabel = e.currentTarget.querySelector('.type-label');
-                    const viewDetails = e.currentTarget.querySelector('.view-details');
-                    if (typeLabel) typeLabel.style.color = '#6468ed';
-                    if (viewDetails) viewDetails.style.color = '#6468ed';
-                  }}
-                  onMouseLeave={(e) => {
-                    const typeLabel = e.currentTarget.querySelector('.type-label');
-                    const viewDetails = e.currentTarget.querySelector('.view-details');
-                    if (typeLabel) typeLabel.style.color = '#648aed';
-                    if (viewDetails) viewDetails.style.color = '#648aed';
-                  }}
+                  className="border-b border-black/10 pb-8 last:border-b-0"
                 >
-                  <div className="flex justify-between items-start mb-3">
-                    <div className="flex-1">
-                      <h3 className="text-xl font-light mb-1 group-hover:opacity-60 transition-opacity">
-                        {exp.role}
-                      </h3>
-                      <div className="flex items-center gap-3 text-sm text-black/60">
-                        <span>{exp.company}</span>
-                        <span>·</span>
-                        <span>{exp.period}</span>
+                  <div
+                    onClick={() => toggleExpand(exp.id)}
+                    className="group cursor-pointer"
+                    onMouseEnter={(e) => {
+                      const typeLabel = e.currentTarget.querySelector('.type-label');
+                      const viewDetails = e.currentTarget.querySelector('.view-details');
+                      if (typeLabel) typeLabel.style.color = '#6468ed';
+                      if (viewDetails) viewDetails.style.color = '#6468ed';
+                    }}
+                    onMouseLeave={(e) => {
+                      const typeLabel = e.currentTarget.querySelector('.type-label');
+                      const viewDetails = e.currentTarget.querySelector('.view-details');
+                      if (typeLabel) typeLabel.style.color = '#648aed';
+                      if (viewDetails) viewDetails.style.color = '#648aed';
+                    }}
+                  >
+                    <div className="flex justify-between items-start mb-3">
+                      <div className="flex-1">
+                        <h3 className="text-xl font-light mb-1 group-hover:opacity-60 transition-opacity">
+                          {exp.role}
+                        </h3>
+                        <div className="flex items-center gap-3 text-sm text-black/60">
+                          <span>{exp.company}</span>
+                          <span>·</span>
+                          <span>{exp.period}</span>
+                        </div>
+                      </div>
+                      <span className="type-label text-xs uppercase tracking-widest ml-4 transition-colors" style={{color: '#648aed'}}>
+                        {exp.type}
+                      </span>
+                    </div>
+                    
+                    <p className="text-black/70 leading-relaxed max-w-2xl mb-4">
+                      {exp.summary}
+                    </p>
+
+                    <div className="view-details inline-flex items-center gap-2 text-xs tracking-wide transition-colors" style={{color: '#648aed'}}>
+                      {expandedId === exp.id ? 'Hide details' : 'View details'}
+                      {expandedId === exp.id ? <ChevronDown /> : <ChevronRight />}
+                    </div>
+                  </div>
+
+                  {/* Expanded Details */}
+                  {expandedId === exp.id && (
+                    <div className="mt-8 pt-8 border-t border-black/10 animate-fadeIn">
+                      <div className="space-y-8">
+                        <div>
+                          <h4 className="text-xs uppercase tracking-widest text-black/40 mb-4">
+                            Responsibilities
+                          </h4>
+                          <ul className="space-y-3">
+                            {exp.responsibilities.map((item, idx) => (
+                              <li key={idx} className="text-black/70 leading-relaxed pl-4 border-l border-black/10 text-sm">
+                                {item}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+
+                        <div>
+                          <h4 className="text-xs uppercase tracking-widest text-black/40 mb-4">
+                            Impact
+                          </h4>
+                          <p className="text-black/70 leading-relaxed max-w-2xl text-sm">
+                            {exp.impact}
+                          </p>
+                        </div>
                       </div>
                     </div>
-                    <span className="type-label text-xs uppercase tracking-widest ml-4 transition-colors" style={{color: '#648aed'}}>
-                      {exp.type}
-                    </span>
-                  </div>
-                  
-                  <p className="text-black/70 leading-relaxed max-w-2xl">
-                    {exp.summary}
-                  </p>
-
-                  <div className="view-details mt-4 inline-flex items-center gap-2 text-xs tracking-wide transition-colors" style={{color: '#648aed'}}>
-                    View details
-                    <ChevronRight />
-                  </div>
+                  )}
                 </article>
               ))}
             </div>
@@ -260,60 +296,21 @@
             </div>
           </footer>
 
-          {/* Experience Detail Modal */}
-          {selectedExperience && (
-            <div 
-              className="fixed inset-0 bg-white z-50 overflow-y-auto"
-              onClick={() => setSelectedExperience(null)}
-            >
-              <div className="max-w-3xl mx-auto px-6 py-20" onClick={(e) => e.stopPropagation()}>
-                <button
-                  onClick={() => setSelectedExperience(null)}
-                  className="fixed top-8 right-8 text-black/40 hover:text-black transition-colors"
-                >
-                  <X />
-                </button>
-
-                <div className="mb-16">
-                  <div className="text-xs uppercase tracking-widest mb-6" style={{color: '#648aed'}}>
-                    {selectedExperience.type}
-                  </div>
-                  <h2 className="text-4xl font-light tracking-tight mb-4">
-                    {selectedExperience.role}
-                  </h2>
-                  <div className="flex items-center gap-3 text-sm text-black/60 mb-8">
-                    <span>{selectedExperience.company}</span>
-                    <span>·</span>
-                    <span>{selectedExperience.period}</span>
-                  </div>
-                </div>
-
-                <div className="space-y-12">
-                  <div>
-                    <h3 className="text-xs uppercase tracking-widest text-black/40 mb-6">
-                      Responsibilities
-                    </h3>
-                    <ul className="space-y-4">
-                      {selectedExperience.responsibilities.map((item, idx) => (
-                        <li key={idx} className="text-black/70 leading-relaxed pl-4 border-l border-black/10">
-                          {item}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  <div>
-                    <h3 className="text-xs uppercase tracking-widest text-black/40 mb-6">
-                      Impact
-                    </h3>
-                    <p className="text-black/70 leading-relaxed max-w-xl">
-                      {selectedExperience.impact}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
+          <style>{`
+            @keyframes fadeIn {
+              from {
+                opacity: 0;
+                transform: translateY(-10px);
+              }
+              to {
+                opacity: 1;
+                transform: translateY(0);
+              }
+            }
+            .animate-fadeIn {
+              animation: fadeIn 0.3s ease-out;
+            }
+          `}</style>
         </div>
       );
     };
