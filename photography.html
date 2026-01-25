@@ -1,1 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photography | Danielle Mariott</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-bg: #fafafa;
+            --color-text: #1a1a1a;
+            --color-text-secondary: #525252;
+            --color-border: #e5e5e5;
+            --color-hover: #f5f5f5;
+            --color-accent: #404040;
+            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            --transition: 0.2s ease;
+        }
 
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+        html {
+            font-size: 16px;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: var(--font-sans);
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Skip Link for Accessibility */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: var(--color-text);
+            color: var(--color-bg);
+            padding: 8px 16px;
+            z-index: 100;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .skip-link:focus {
+            top: 0;
+        }
+
+        /* Header */
+        header {
+            padding: 2rem 2rem 1rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .site-title {
+            font-size: 1.125rem;
+            font-weight: 500;
+            color: var(--color-text);
+            text-decoration: none;
+            letter-spacing: -0.01em;
+        }
+
+        .site-title:hover,
+        .site-title:focus {
+            color: var(--color-text-secondary);
+        }
+
+        nav {
+            display: flex;
+            gap: 2rem;
+        }
+
+        nav a {
+            font-size: 0.875rem;
+            color: var(--color-text-secondary);
+            text-decoration: none;
+            font-weight: 400;
+            transition: color var(--transition);
+            padding: 0.25rem 0;
+        }
+
+        nav a:hover,
+        nav a:focus {
+            color: var(--color-text);
+        }
+
+        nav a[aria-current="page"] {
+            color: var(--color-text);
+            font-weight: 500;
+            border-bottom: 1.5px solid var(--color-text);
+        }
+
+        /* Main Content */
+        main {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .page-header {
+            margin-bottom: 3rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .page-title {
+            font-size: 2rem;
+            font-weight: 300;
+            margin: 0 0 0.75rem;
+            letter-spacing: -0.02em;
+        }
+
+        .page-description {
+            font-size: 1rem;
+            color: var(--color-text-secondary);
+            margin: 0;
+            max-width: 600px;
+        }
+
+        /* Category Section */
+        .category-section {
+            margin-bottom: 4rem;
+        }
+
+        .category-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .category-header {
+            margin-bottom: 2rem;
+        }
+
+        .category-title {
+            font-size: 1.5rem;
+            font-weight: 400;
+            margin: 0 0 0.5rem;
+            letter-spacing: -0.01em;
+            color: var(--color-text);
+        }
+
+        .category-description {
+            font-size: 0.875rem;
+            color: var(--color-text-secondary);
+            margin: 0;
+        }
+
+        /* Gallery Grid - Masonry Style */
+        .gallery-grid {
+            column-count: 3;
+            column-gap: 2rem;
+        }
+
+        @media (max-width: 1024px) {
+            .gallery-grid {
+                column-count: 2;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .gallery-grid {
+                column-count: 1;
+            }
+        }
+
+        /* Photo Card */
+        .photo-card {
+            background: white;
+            border: 1px solid var(--color-border);
+            border-radius: 4px;
+            overflow: hidden;
+            break-inside: avoid;
+            margin-bottom: 2rem;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .photo-image-container {
+            position: relative;
+            overflow: hidden;
+            background: white;
+            display: block;
+        }
+
+        .photo-image {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Focus States for Accessibility */
+        a:focus,
+        button:focus {
+            outline: 2px solid var(--color-accent);
+            outline-offset: 2px;
+        }
+
+        /* Footer */
+        footer {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+            border-top: 1px solid var(--color-border);
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .footer-text {
+            font-size: 0.875rem;
+            color: var(--color-text-secondary);
+            margin: 0;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .footer-links a {
+            font-size: 0.875rem;
+            color: var(--color-text-secondary);
+            text-decoration: none;
+            transition: color var(--transition);
+        }
+
+        .footer-links a:hover,
+        .footer-links a:focus {
+            color: var(--color-text);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            header {
+                padding: 1.5rem 1.25rem 1rem;
+            }
+
+            .header-content {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            nav {
+                gap: 1.5rem;
+            }
+
+            main {
+                padding: 1.5rem 1.25rem;
+            }
+
+            .page-title {
+                font-size: 1.75rem;
+            }
+
+            .category-title {
+                font-size: 1.25rem;
+            }
+
+            .gallery-grid {
+                column-gap: 1.5rem;
+            }
+
+            .photo-card {
+                margin-bottom: 1.5rem;
+            }
+
+            footer {
+                padding: 2rem 1.25rem;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .gallery-grid {
+                column-gap: 1rem;
+            }
+
+            .photo-card {
+                margin-bottom: 1rem;
+            }
+        }
+
+        /* Reduced motion preference */
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <header>
+        <div class="header-content">
+            <a href="/" class="site-title">Danielle Mariott</a>
+            <nav aria-label="Main navigation">
+                <a href="/">Home</a>
+                <a href="/painting">Painting</a>
+                <a href="/photography" aria-current="page">Photography</a>
+                <a href="https://substack.com/@stereoke/posts">Writing</a>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <div class="page-header">
+            <h1 class="page-title">Photography</h1>
+            <p class="page-description">Portrait and music photography from various projects over the years.</p>
+        </div>
+
+        <!-- Portrait Category -->
+        <section class="category-section" aria-labelledby="portrait-heading">
+            <div class="category-header">
+                <h2 class="category-title" id="portrait-heading">Portrait</h2>
+                <p class="category-description">Personal portrait work</p>
+            </div>
+            
+            <div class="gallery-grid">
+                <article class="photo-card">
+                    <div class="photo-image-container">
+                        <img 
+                            src="https://live.staticflickr.com/65535/55059548523_da360d0e64_c.jpg" 
+                            alt="Portrait of Elysia"
+                            class="photo-image"
+                            loading="lazy"
+                        >
+                    </div>
+                </article>
+
+                <article class="photo-card">
+                    <div class="photo-image-container">
+                        <img 
+                            src="https://live.staticflickr.com/65535/55059729305_497b523710_c.jpg" 
+                            alt="Portrait of Stephanie"
+                            class="photo-image"
+                            loading="lazy"
+                        >
+                    </div>
+                </article>
+
+                <article class="photo-card">
+                    <div class="photo-image-container">
+                        <img 
+                            src="https://live.staticflickr.com/65535/55059548533_9a20029457_c.jpg" 
+                            alt="Portrait of Denise"
+                            class="photo-image"
+                            loading="lazy"
+                        >
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- Music Category -->
+        <section class="category-section" aria-labelledby="music-heading">
+            <div class="category-header">
+                <h2 class="category-title" id="music-heading">Music</h2>
+                <p class="category-description">Concert and music photography</p>
+            </div>
+            
+            <div class="gallery-grid">
+                <article class="photo-card">
+                    <div class="photo-image-container">
+                        <img 
+                            src="https://live.staticflickr.com/6118/6300283947_af63e1e0c1_c.jpg" 
+                            alt="Phantogram performing live"
+                            class="photo-image"
+                            loading="lazy"
+                        >
+                    </div>
+                </article>
+
+                <article class="photo-card">
+                    <div class="photo-image-container">
+                        <img 
+                            src="https://live.staticflickr.com/1856/43385842494_81f046cb8f_c.jpg" 
+                            alt="The War on Drugs performing live"
+                            class="photo-image"
+                            loading="lazy"
+                        >
+                    </div>
+                </article>
+
+                <article class="photo-card">
+                    <div class="photo-image-container">
+                        <img 
+                            src="https://live.staticflickr.com/5259/5587566498_6b2d91d943_c.jpg" 
+                            alt="Wye Oak performing live"
+                            class="photo-image"
+                            loading="lazy"
+                        >
+                    </div>
+                </article>
+
+                <article class="photo-card">
+                    <div class="photo-image-container">
+                        <img 
+                            src="https://live.staticflickr.com/6213/6268244170_3ec2467c8b_c.jpg" 
+                            alt="Shellac and Helen Money performing live"
+                            class="photo-image"
+                            loading="lazy"
+                        >
+                    </div>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p class="footer-text">© 2026 Danielle Mariott. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="https://linkedin.com/in/daniellemariott" aria-label="LinkedIn profile">LinkedIn</a>
+                <a href="mailto:hello@daniellemariott.com" aria-label="Send email">Contact</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
