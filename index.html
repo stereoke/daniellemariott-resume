@@ -23,7 +23,7 @@
         name: "Hello! I'm Danielle",
         title: "Product Leader by Day, Artist by Design",
         location: "Salt Lake City, Utah",
-        bio: "15 years driving enterprise-scale solutions. 5 years managing creative and technical teams. Currently leading a platform, x-functional, squad at Adobe while architecting design systems that power 1M+ web pages.",
+        bio: "15 years driving enterprise-scale solutions. 5 years managing creative and technical teams. Currently leading a x-functional squad at Adobe while architecting design systems that power 1M+ web pages.",
         seeking: "Seeking formal team leadership opportunities to scale impact through product and people development.",
         profileImage: "https://raw.githubusercontent.com/stereoke/images/main/d-sun-square.png"
       },
@@ -37,14 +37,35 @@
         { label: "Photography", href: "/photography" },
         { label: "Writing", href: "https://substack.com/@stereoke/posts" },
       ],
-      paintings: [
-        { id: 1, src: "https://raw.githubusercontent.com/stereoke/images/main/nicole.jpg", title: "Nicole", medium: "Oil on panel" },
-        { id: 2, src: "https://raw.githubusercontent.com/stereoke/images/main/john.JPG", title: "John", medium: "Oil on panel" },
-        { id: 3, src: "https://raw.githubusercontent.com/stereoke/images/main/amanda.jpg", title: "Amanda", medium: "Oil on panel" },
-        { id: 4, src: "https://raw.githubusercontent.com/stereoke/images/main/hands.jpg", title: "Hands", medium: "Oil on panel" },
-        { id: 5, src: "https://raw.githubusercontent.com/stereoke/images/main/rocko.jpg", title: "Rocko", medium: "Watercolor" },
-        { id: 6, src: "https://raw.githubusercontent.com/stereoke/images/main/charlie.JPG", title: "Charlie", medium: "Watercolor" },
-        { id: 7, src: "https://raw.githubusercontent.com/stereoke/images/main/dubs.JPG", title: "Dubs", medium: "Watercolor" },
+      useCases: [
+        {
+          id: 1,
+          type: 'image',
+          src: 'https://raw.githubusercontent.com/stereoke/images/main/running-on-experience.png',
+          title: 'Running on Experience',
+          description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.'
+        },
+        {
+          id: 2,
+          type: 'image',
+          src: 'https://raw.githubusercontent.com/stereoke/images/main/adi.png',
+          title: 'Adobe Digital Index',
+          description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.'
+        },
+        {
+          id: 3,
+          type: 'image',
+          src: 'https://raw.githubusercontent.com/stereoke/images/main/Adobe%20CAAS.png',
+          title: 'Adobe Content as a Service',
+          description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.'
+        },
+        {
+          id: 4,
+          type: 'image',
+          src: 'https://raw.githubusercontent.com/stereoke/images/main/cabletv.png',
+          title: 'CableTV.com Platform',
+          description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.'
+        }
       ],
       experiences: [
         {
@@ -155,18 +176,6 @@
     const ChevronDown = () => (
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
         <polyline points="6 9 12 15 18 9"></polyline>
-      </svg>
-    );
-
-    const ChevronLeft = () => (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-        <polyline points="15 18 9 12 15 6"></polyline>
-      </svg>
-    );
-
-    const ChevronRightLarge = () => (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-        <polyline points="9 18 15 12 9 6"></polyline>
       </svg>
     );
 
@@ -297,167 +306,83 @@
       );
     };
 
-    // Accessible Painting Carousel Component
-    const PaintingCarousel = ({ paintings }) => {
-      const scrollRef = useRef(null);
-      const [canScrollLeft, setCanScrollLeft] = useState(false);
-      const [canScrollRight, setCanScrollRight] = useState(true);
-      const [currentIndex, setCurrentIndex] = useState(0);
-
-      const checkScrollability = () => {
-        if (scrollRef.current) {
-          const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
-          setCanScrollLeft(scrollLeft > 0);
-          setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 10);
-          
-          const cardWidth = 280 + 24;
-          const newIndex = Math.round(scrollLeft / cardWidth);
-          setCurrentIndex(newIndex);
-        }
-      };
-
-      useEffect(() => {
-        checkScrollability();
-        window.addEventListener('resize', checkScrollability);
-        return () => window.removeEventListener('resize', checkScrollability);
-      }, []);
-
-      const scroll = (direction) => {
-        if (scrollRef.current) {
-          const scrollAmount = 304;
-          scrollRef.current.scrollBy({
-            left: direction === 'left' ? -scrollAmount : scrollAmount,
-            behavior: 'smooth'
-          });
-          setTimeout(checkScrollability, 300);
-        }
-      };
-
-      const handleKeyDown = (e) => {
-        if (e.key === 'ArrowLeft') {
-          e.preventDefault();
-          scroll('left');
-        } else if (e.key === 'ArrowRight') {
-          e.preventDefault();
-          scroll('right');
-        }
-      };
+    // Use Cases Preview Component
+    const UseCasesPreview = () => {
+      const [selectedCase, setSelectedCase] = useState(null);
 
       return (
-        <section 
-          className="max-w-4xl mx-auto px-6 py-20 border-t border-black/10"
-          aria-labelledby="painting-heading"
-        >
-          <div className="flex justify-between items-center mb-12">
-            <h2 id="painting-heading" className="text-xs uppercase tracking-widest text-black/40">
-              Painting
-            </h2>
-            <a 
-              href="/painting" 
-              className="text-xs tracking-wide transition-all hover:font-semibold underline"
-              style={{color: '#648aed'}}
-            >
-              View all work →
-            </a>
-          </div>
+        <section className="max-w-4xl mx-auto px-6 py-20 border-t border-black/10">
+          <h2 className="text-xs uppercase tracking-widest text-black/40 mb-12">
+            Use Cases
+          </h2>
 
-          <div className="relative">
-            <button
-              onClick={() => scroll('left')}
-              disabled={!canScrollLeft}
-              aria-label="Scroll left to see previous paintings"
-              className={`absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-10 w-10 h-10 rounded-full bg-white border border-black/10 flex items-center justify-center transition-all ${
-                canScrollLeft 
-                  ? 'opacity-100 hover:border-black/30 cursor-pointer' 
-                  : 'opacity-0 cursor-default'
-              }`}
-              style={{ boxShadow: '0 2px 8px rgba(0,0,0,0.08)' }}
-            >
-              <ChevronLeft />
-            </button>
-
-            <button
-              onClick={() => scroll('right')}
-              disabled={!canScrollRight}
-              aria-label="Scroll right to see more paintings"
-              className={`absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-10 w-10 h-10 rounded-full bg-white border border-black/10 flex items-center justify-center transition-all ${
-                canScrollRight 
-                  ? 'opacity-100 hover:border-black/30 cursor-pointer' 
-                  : 'opacity-0 cursor-default'
-              }`}
-              style={{ boxShadow: '0 2px 8px rgba(0,0,0,0.08)' }}
-            >
-              <ChevronRightLarge />
-            </button>
-
-            <div
-              ref={scrollRef}
-              onScroll={checkScrollability}
-              onKeyDown={handleKeyDown}
-              tabIndex="0"
-              role="region"
-              aria-label={`Painting gallery, showing ${paintings.length} paintings. Use arrow keys to navigate.`}
-              className="flex gap-6 overflow-x-auto scrollbar-hide pb-4 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 rounded-lg"
-              style={{ 
-                scrollbarWidth: 'none', 
-                msOverflowStyle: 'none',
-                scrollSnapType: 'x mandatory'
-              }}
-            >
-              {paintings.map((painting, index) => (
-                <article
-                  key={painting.id}
-                  className="flex-shrink-0 w-[280px] group"
-                  style={{ scrollSnapAlign: 'start' }}
-                >
-                  <div className="aspect-[4/5] overflow-hidden rounded bg-black/5 mb-4">
-                    <img
-                      src={painting.src}
-                      alt={`${painting.title} - ${painting.medium} by Danielle Mariott`}
-                      className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                      loading="lazy"
+          <div className="grid md:grid-cols-3 gap-6">
+            {resumeData.useCases.map((item) => (
+              <article 
+                key={item.id}
+                onClick={() => item.type === 'image' && setSelectedCase(item)}
+                className={`group ${item.type === 'image' ? 'cursor-pointer' : ''}`}
+              >
+                <div className="aspect-video bg-black/5 rounded overflow-hidden mb-4">
+                  {item.type === 'video' ? (
+                    <iframe
+                      width="100%"
+                      height="100%"
+                      src={item.src}
+                      title={item.title}
+                      frameBorder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                      className="w-full h-full"
                     />
-                  </div>
-                  <h3 className="text-base font-light mb-1">{painting.title}</h3>
-                  <p className="text-sm text-black/50 italic">{painting.medium}</p>
-                </article>
-              ))}
-            </div>
-
-            <div className="sr-only" aria-live="polite" aria-atomic="true">
-              Showing painting {currentIndex + 1} of {paintings.length}
-            </div>
-          </div>
-
-          <div 
-            className="flex justify-center gap-2 mt-6" 
-            role="tablist" 
-            aria-label="Carousel pagination"
-          >
-            {paintings.map((_, index) => (
-              <button
-                key={index}
-                role="tab"
-                aria-selected={index === currentIndex}
-                aria-label={`Go to painting ${index + 1}`}
-                onClick={() => {
-                  if (scrollRef.current) {
-                    const cardWidth = 304;
-                    scrollRef.current.scrollTo({
-                      left: cardWidth * index,
-                      behavior: 'smooth'
-                    });
-                    setTimeout(checkScrollability, 300);
-                  }
-                }}
-                className={`w-2 h-2 rounded-full transition-all ${
-                  index === currentIndex 
-                    ? 'bg-black/60 w-4' 
-                    : 'bg-black/20 hover:bg-black/40'
-                }`}
-              />
+                  ) : (
+                    <img
+                      src={item.src}
+                      alt={item.title}
+                      className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                    />
+                  )}
+                </div>
+                <h3 className="text-sm font-light text-black/80">{item.title}</h3>
+              </article>
             ))}
           </div>
+
+          {/* Lightbox Modal */}
+          {selectedCase && (
+            <div 
+              className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-6"
+              onClick={() => setSelectedCase(null)}
+            >
+              <div 
+                className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <div className="relative">
+                  <button
+                    onClick={() => setSelectedCase(null)}
+                    className="absolute top-4 right-4 w-8 h-8 bg-white rounded-full flex items-center justify-center text-black/60 hover:text-black transition-colors z-10"
+                  >
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <line x1="18" y1="6" x2="6" y2="18"></line>
+                      <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                  </button>
+                  
+                  <img
+                    src={selectedCase.src}
+                    alt={selectedCase.title}
+                    className="w-full h-auto rounded-t-lg"
+                  />
+                </div>
+                
+                <div className="p-8">
+                  <h3 className="text-2xl font-light mb-4">{selectedCase.title}</h3>
+                  <p className="text-black/70 leading-relaxed">{selectedCase.description}</p>
+                </div>
+              </div>
+            </div>
+          )}
         </section>
       );
     };
@@ -627,8 +552,8 @@
             </div>
           </section>
 
-          {/* Painting Carousel */}
-          <PaintingCarousel paintings={resumeData.paintings} />
+          {/* Use Cases Section */}
+          <UseCasesPreview />
 
           {/* Footer */}
           <footer className="border-t border-black/10">
