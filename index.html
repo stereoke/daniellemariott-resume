@@ -23,7 +23,7 @@
         name: "Hello! I'm Danielle",
         title: "Product Leader by Day, Artist by Design",
         location: "Salt Lake City, Utah",
-        bio: "15 years driving enterprise-scale solutions. 5 years managing creative and technical teams. Currently leading a x-functional squad at Adobe while architecting design systems that power 1M+ web pages.",
+        bio: "15 years driving enterprise-scale solutions. 5 years managing creative and technical teams. Currently leading a platform, x-functional, squad at Adobe while architecting design systems that power 1M+ web pages.",
         seeking: "Seeking formal team leadership opportunities to scale impact through product and people development.",
         profileImage: "https://raw.githubusercontent.com/stereoke/images/main/d-sun-square.png"
       },
@@ -157,8 +157,7 @@
             "Managed UX team through print-to-web transformation",
             "Created a bold UX minimalist design that elevated the brand identity",
             "Led social media strategy during early days of social platforms",
-            "Applied creative thinking to technical and business challenges",
-            "Built foundation for cross-functional collaboration"
+            "Applied creative thinking to technical and business challenges in a fast-paced marketing org with emerging tech"
           ],
           impact: "Known for applying adaptable and performance-based creativity to everything from design to technical concepts"
         }
@@ -311,7 +310,7 @@
       const [selectedCase, setSelectedCase] = useState(null);
 
       return (
-        <section className="max-w-4xl mx-auto px-6 py-20 border-t border-black/10">
+        <section className="mx-auto px-6 py-20 border-t border-black/10" style={{ maxWidth: '1200px' }}>
           <h2 className="text-xs uppercase tracking-widest text-black/40 mb-12">
             Use Cases
           </h2>
@@ -398,7 +397,7 @@
         <div className="min-h-screen bg-white text-black font-light">
           {/* Top Navigation Bar */}
           <div className="sticky top-0 z-30 bg-white/95 backdrop-blur-sm border-b border-black/5">
-            <div className="max-w-4xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div className="mx-auto px-6 py-4 flex justify-between items-center" style={{ maxWidth: '1200px' }}>
               <a href="/" className="text-sm font-medium tracking-tight text-black/80 hover:text-black transition-colors">
                 Danielle Mariott
               </a>
@@ -408,7 +407,7 @@
 
           {/* Header */}
           <header className="border-b border-black/10">
-            <div className="max-w-4xl mx-auto px-6 py-16">
+            <div className="mx-auto px-6 py-16" style={{ maxWidth: '1200px' }}>
               <div className="mb-8">
                 <div className="flex items-start gap-6 mb-6">
                   {/* Desktop: Small bio pic next to name */}
@@ -441,7 +440,7 @@
                 </div>
               </div>
               
-              <div className="max-w-2xl space-y-6">
+              <div className="space-y-6" style={{ maxWidth: '900px' }}>
                 <p className="text-lg leading-relaxed text-black/80">
                   {resumeData.summary.bio}
                 </p>
@@ -453,7 +452,7 @@
           </header>
 
           {/* Experience */}
-          <section className="max-w-4xl mx-auto px-6 py-20">
+          <section className="mx-auto px-6 py-20" style={{ maxWidth: '1200px' }}>
             <h2 className="text-xs uppercase tracking-widest text-black/40 mb-12">
               Experience
             </h2>
@@ -506,7 +505,7 @@
                       </span>
                     </div>
                     
-                    <p className="text-black/70 leading-relaxed max-w-2xl mb-4">
+                    <p className="text-black/70 leading-relaxed mb-4" style={{ maxWidth: '900px' }}>
                       {exp.summary}
                     </p>
 
@@ -540,7 +539,7 @@
                           <h4 className="text-xs uppercase tracking-widest text-black/40 mb-4">
                             Impact
                           </h4>
-                          <p className="text-black/70 leading-relaxed max-w-2xl text-sm">
+                          <p className="text-black/70 leading-relaxed text-sm" style={{ maxWidth: '900px' }}>
                             {exp.impact}
                           </p>
                         </div>
@@ -557,7 +556,7 @@
 
           {/* Footer */}
           <footer className="border-t border-black/10">
-            <div className="max-w-4xl mx-auto px-6 py-12">
+            <div className="mx-auto px-6 py-12" style={{ maxWidth: '1200px' }}>
               <div className="flex justify-between items-center text-xs text-black/40 tracking-wide">
                 <div className="space-y-1">
                   <p>{resumeData.contact.email}</p>
